@@ -13,6 +13,7 @@ use crate::command::login::{self, Login};
 use crate::command::push::{self, Push};
 use crate::command::r#use::{self, Use};
 use crate::command::watch_store::{self, WatchStore};
+use crate::command::info::{self, Info};
 
 /// Attic binary cache client.
 #[derive(Debug, Parser)]
@@ -27,6 +28,7 @@ pub struct Opts {
 pub enum Command {
     Login(Login),
     Use(Use),
+    Info(Info),
     Push(Push),
     Cache(Cache),
     WatchStore(WatchStore),
@@ -57,6 +59,7 @@ pub async fn run() -> Result<()> {
         Command::Cache(_) => cache::run(opts).await,
         Command::WatchStore(_) => watch_store::run(opts).await,
         Command::GetClosure(_) => get_closure::run(opts).await,
+        Command::Info(_) => info::run(opts).await,
     }
 }
 

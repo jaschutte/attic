@@ -11,6 +11,7 @@ use tracing_subscriber::prelude::*;
 use tracing_subscriber::EnvFilter;
 
 use attic_server::config;
+use attic_server::list;
 
 /// Nix binary cache server.
 #[derive(Debug, Parser)]
@@ -57,6 +58,9 @@ enum ServerMode {
 
     /// Check the configuration then exit.
     CheckConfig,
+
+    /// Lists available packages
+    List,
 }
 
 #[tokio::main]
@@ -92,6 +96,9 @@ async fn main() -> Result<()> {
         ServerMode::GarbageCollectorOnce => {
             attic_server::gc::run_garbage_collection_once(config).await?;
         }
+        ServerMode::List => {
+            attic_server::list::list(config).await?;
+        },
         ServerMode::CheckConfig => {
             // config is valid, let's just exit :)
         }

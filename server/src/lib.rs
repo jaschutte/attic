@@ -24,6 +24,7 @@ mod narinfo;
 pub mod nix_manifest;
 pub mod oobe;
 mod storage;
+pub mod list;
 
 use std::future::IntoFuture;
 use std::net::SocketAddr;
